@@ -1,0 +1,77 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]> <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]> <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Catwalk Test Page</title>
+
+  <!-- Bootstrap -->
+  <script src="/scripts/libraries/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/scripts/libraries/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/scripts/libraries/dust-full-0.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <h1>Catwalk Test Page</h1>
+    <div id="data">
+      <script id="elements" type="text/template" data-template-id="elements" charset="utf-8">
+        <ul>
+        {#elements}
+          <li>
+            <h2>Actor</h2>
+            <table>
+              <tr>
+                <th>id</th>
+                <th>image</th>
+                <th>title</th>
+                <th>type</th>
+              </tr>
+              <tr>
+                <td>{actor.id}</td>
+                <td>{actor.image}</td>
+                <td>{actor.title}</td>
+                <td>{actor.type}</td>
+              </tr>
+            </table>
+            <h2>Body</h2>
+            <p>{body}</p>
+          </li>
+        {/elements}
+        <ul>
+      </script>
+    </div>
+  </div>
+  <script type="text/javascript" charset="utf-8">
+    $( function() {
+      var $templates = $( 'script[type="text/template"]' );
+
+      $templates.each( function( index, item ) {
+        var $this = $( item );
+        dust.loadSource( dust.compile( $this.html(), $this.data( 'template-id' ) ) );
+      } );
+
+    } );
+  </script>
+  <script type="text/javascript" charset="utf-8">
+    $( function () {
+      $.getJSON( '/data/data.json', function( data ) {
+        dust.render( 'elements', data, function( error, output ) {
+          $( '#elements' ).replaceWith( output );
+        } );
+      } );
+    } );
+  </script>
+</body>
+
+</html>
+
