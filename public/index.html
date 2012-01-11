@@ -12,6 +12,18 @@
 
   <title>Catwalk Test Page</title>
 
+  <style type="text/css" media="screen">
+    table th {
+      text-align: left;
+    }
+    table th,
+    table td {
+      padding: 4px;
+    }
+    table tr:nth-child( 2n + 1 ) {
+      background-color: #EEE;
+    }
+  </style>
   <!-- Bootstrap -->
   <script src="/scripts/libraries/underscore-min.js" type="text/javascript" charset="utf-8"></script>
   <script src="/scripts/libraries/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -24,30 +36,33 @@
   <div id="container">
     <h1>Catwalk Test Page</h1>
     <div id="data">
-      <script id="elements" type="text/template" data-template-id="elements" charset="utf-8">
-        <ul>
-        {#elements}
-          <li>
-            <h2>Actor</h2>
-            <table>
-              <tr>
-                <th>id</th>
-                <th>image</th>
-                <th>title</th>
-                <th>type</th>
-              </tr>
-              <tr>
-                <td>{actor.id}</td>
-                <td>{actor.image}</td>
-                <td>{actor.title}</td>
-                <td>{actor.type}</td>
-              </tr>
-            </table>
-            <h2>Body</h2>
-            <p>{body}</p>
-          </li>
-        {/elements}
-        <ul>
+      <script id="result" type="text/template" data-template-id="result" charset="utf-8">
+        <table>
+          <tr>
+            <th>id</th>
+            <th>avatar</th>
+            <th>age</th>
+            <th>admin</th>
+            <th>name</th>
+            <th>company</th>
+            <th>phone</th>
+            <th>email</th>
+            <th>registerDate</th>
+          </tr>
+          {#result}
+          <tr>
+            <td>{id}</td>
+            <td>{avatar}</td>
+            <td>{age}</td>
+            <td>{admin}</td>
+            <td>{name}</td>
+            <td>{company}</td>
+            <td>{phone}</td>
+            <td>{email}</td>
+            <td>{registerDate}</td>
+          </tr>
+          {/result}
+        </table>
       </script>
     </div>
   </div>
@@ -65,8 +80,8 @@
   <script type="text/javascript" charset="utf-8">
     $( function () {
       $.getJSON( '/data/data.json', function( data ) {
-        dust.render( 'elements', data, function( error, output ) {
-          $( '#elements' ).replaceWith( output );
+        dust.render( 'result', data, function( error, output ) {
+          $( '#result' ).replaceWith( output );
         } );
       } );
     } );
