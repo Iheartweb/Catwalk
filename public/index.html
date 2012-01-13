@@ -7,85 +7,88 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Catwalk Test Page</title>
+	<title>Catwalk Test Page</title>
 
-  <style type="text/css" media="screen">
-    table th {
-      text-align: left;
-    }
-    table th,
-    table td {
-      padding: 4px;
-    }
-    table tr:nth-child( 2n + 1 ) {
-      background-color: #EEE;
-    }
-  </style>
-  <!-- Bootstrap -->
-  <script src="/scripts/libraries/underscore-min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="/scripts/libraries/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="/scripts/libraries/dust-full-0.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css" media="screen">
+		table th {
+	 		text-align: left;
+		}
+		table th,
+		table td {
+			padding: 4px;
+		}
+		table tr:nth-child( 2n + 1 ) {
+			background-color: #EEE;
+		}
+	</style>
+	<!-- Bootstrap -->
+	<script src="/scripts/libraries/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/scripts/libraries/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/scripts/libraries/dust-full-0.3.0.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- Catwalk -->
+	<script src="scripts/catwalk-0.0.1.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 
 <body>
 
-  <div id="container">
-    <h1>Catwalk Test Page</h1>
-    <div id="data">
-      <script id="result" type="text/template" data-template-id="result" charset="utf-8">
-        <table>
-          <tr>
-            <th>id</th>
-            <th>avatar</th>
-            <th>age</th>
-            <th>admin</th>
-            <th>name</th>
-            <th>company</th>
-            <th>phone</th>
-            <th>email</th>
-            <th>registerDate</th>
-          </tr>
-          {#result}
-          <tr>
-            <td>{id}</td>
-            <td>{avatar}</td>
-            <td>{age}</td>
-            <td>{admin}</td>
-            <td>{name}</td>
-            <td>{company}</td>
-            <td>{phone}</td>
-            <td>{email}</td>
-            <td>{registerDate}</td>
-          </tr>
-          {/result}
-        </table>
-      </script>
-    </div>
-  </div>
-  <script type="text/javascript" charset="utf-8">
-    $( function() {
-      var $templates = $( 'script[type="text/template"]' );
+	<div id="container">
+		<h1>Catwalk Test Page</h1>
+		<div id="data">
+			<script id="result" type="text/template" data-template-id="result" charset="utf-8">
+				<table>
+				  <tr>
+					<th>id</th>
+					<th>avatar</th>
+					<th>age</th>
+					<th>admin</th>
+					<th>name</th>
+					<th>company</th>
+					<th>phone</th>
+					<th>email</th>
+					<th>registerDate</th>
+				  </tr>
+				  {#result}
+				  <tr>
+					<td>{id}</td>
+					<td>{avatar}</td>
+					<td>{age}</td>
+					<td>{admin}</td>
+					<td>{name}</td>
+					<td>{company}</td>
+					<td>{phone}</td>
+					<td>{email}</td>
+					<td>{registerDate}</td>
+				  </tr>
+				  {/result}
+				</table>
+			</script>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$( function() {
+			var $templates = $( 'script[type="text/template"]' );
 
-      $templates.each( function( index, item ) {
-        var $this = $( item );
-        dust.loadSource( dust.compile( $this.html(), $this.data( 'template-id' ) ) );
-      } );
+			$templates.each( function( index, item ) {
+				var $this = $( item );
+				dust.loadSource( dust.compile( $this.html(), $this.data( 'template-id' ) ) );
+			} );
 
-    } );
-  </script>
-  <script type="text/javascript" charset="utf-8">
-    $( function () {
-      $.getJSON( '/data/data.json', function( data ) {
-        dust.render( 'result', data, function( error, output ) {
-          $( '#result' ).replaceWith( output );
-        } );
-      } );
-    } );
-  </script>
+		} );
+	</script>
+	<script type="text/javascript" charset="utf-8">
+		$( function () {
+			$.getJSON( '/data/data.json', function( data ) {
+				dust.render( 'result', data, function( error, output ) {
+					$( '#result' ).replaceWith( output );
+				} );
+			} );
+		} );
+	</script>
 </body>
 
 </html>
