@@ -121,7 +121,9 @@ function Model( data, settings ) {
 
 }
 
-function Collection( settings ) {}
+function Collection( settings ) {
+	``
+}
 
 var TestModel = new Model( {
 	firstName: 'Robert',
