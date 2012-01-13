@@ -82,8 +82,23 @@
 	</script>
 	<script type="text/javascript" charset="utf-8">
 		$( function () {
+			var Activity = new Collection();
 			$.getJSON( '/data/data.json', function( data ) {
-				dust.render( 'result', data, function( error, output ) {
+				console.log( data );
+				_.each( data.result, function( item, index ) {
+					Activity.add( new Model( item ) );
+				} );
+				console.info( 'All DATA' );
+				console.log( Activity.data() );
+				console.info( 'AGE = 44' );
+				console.log( Activity.filter( function( item, index ) {
+					return ( item.age === 44 );
+				} ) );
+				console.info( 'Sorted by Age' );
+				console.log( Activity.sort( function( item, index ) {
+					return item.age;
+				} ) );
+				dust.render( 'result', Activity.data(), function( error, output ) {
 					$( '#result' ).replaceWith( output );
 				} );
 			} );

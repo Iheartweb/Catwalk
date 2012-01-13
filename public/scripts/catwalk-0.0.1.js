@@ -1,8 +1,6 @@
 function Model( data, settings ) {
 	var Model = this,
-		defaults = {
-			undoLevels: -1
-		},
+		defaults = {},
 		id,
 		history,
 		store = data,
@@ -23,9 +21,9 @@ function Model( data, settings ) {
 		id = _.uniqueId();
 	}
 
-	Model.get = function( attribute ) {
-		if( attribute !== undefined ) {
-			return store[attribute];
+	Model.data = function( key ) {
+		if( key !== undefined ) {
+			return store[key];
 		} else {
 			return store;
 		}
@@ -117,19 +115,59 @@ function Model( data, settings ) {
 
 	Model.values = function() {
 		return _.values( store );
-	}
+	};
+
+	Model.reset = function() {
+		Model.set( data );
+	};
 
 }
 
 function Collection( settings ) {
-	``
+	var Collection = this,
+		defaults = {},
+		models = [];
+
+	if( settings ) {
+		_.defaults( settings, defaults );
+	} else {
+		settings = defaults;
+	}
+
+	Collection.get = function( id ) {
+		if( id !== undefined ) {
+			return _.find( models, function( model ) {
+				return model.id() === id;
+			} );
+		}
+	};
+
+	Collection.data = function() {
+		var data = [];
+		_.each( models, function( model, index ) {
+			data.push( model.data() );
+		} );
+		return data;
+	};
+
+	Collection.add = function( model ) {
+		models.push( model );
+	}
+
+	Collection.filter = function( filter ) {
+		return _.filter( Collection.data(), filter );
+	};
+
+	Collection.sort = function( sort ) {
+		return _.sortBy( Collection.data(), sort );
+	};
 }
 
-var TestModel = new Model( {
-	firstName: 'Robert',
-	middleInitial: 'A',
-	lastName: 'Martone',
-	url: function () {
-		return
-	}
-} );
+// TestCollection = new Collection();
+// TestModel = new Model( {
+// 	firstName: 'Robert',
+// 	middleInitial: 'A',
+// 	lastName: 'Martone'
+// } );
+// 
+// TestCollection.add( TestModel );

@@ -58,7 +58,7 @@
   </script>
   <script type="text/javascript" charset="utf-8">
     $( function () {
-      $.getJSON( '/data/activity-views.json', function( data ) {
+      $.getJSON( '/data/data.json', function( data ) {
 		console.log( data );
         dust.render( 'activityView', data, function( error, output ) {
 			console.log( output );
