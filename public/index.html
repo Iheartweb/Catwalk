@@ -39,21 +39,26 @@
 	<div id="container">
 		<h1>Catwalk Test Page</h1>
 		<div id="data">
+			<table>
+				<thead>
+				  <tr>
+					<th><a class="sort" class="acending" data-sort="ascending" data-property="id" data-type="number" href="#">id</a></th>
+					<th><a class="sort" data-property="avatar" href="#" data-type="string">avatar</a></th>
+					<th><a class="sort" data-property="age" data-type="number" href="#" data-type="number">age</a></th>
+					<th><a class="sort" data-property="admin" href="#" data-type="boolean">admin</a></th>
+					<th><a class="sort" data-property="name" href="#" data-type="string">name</a></th>
+					<th><a class="sort" data-property="company" href="#" data-type="string">company</a></th>
+					<th><a class="sort" data-property="phone" href="#" data-type="number">phone</a></th>
+					<th><a class="sort" data-property="email" href="#" data-type="string">email</a></th>
+					<th><a class="sort" data-property="registerDate" href="#" data-type="date">registerDate</a></th>
+				  </tr>
+				<thead>
+				<tbody id="results">
+				<tbody>
+			</table>
 		</div>
 	</div>
 	<script id="results" type="text/template" data-template-id="results" charset="utf-8">
-		<table>
-		  <tr>
-			<th>id</th>
-			<th>avatar</th>
-			<th><a class="sort" data-property="age" href="#">age</a></th>
-			<th>admin</th>
-			<th>name</th>
-			<th>company</th>
-			<th>phone</th>
-			<th>email</th>
-			<th>registerDate</th>
-		  </tr>
 		  {#results}
 		  <tr>
 			<td>{id}</td>
@@ -67,7 +72,6 @@
 			<td>{registerDate}</td>
 		  </tr>
 		  {/results}
-		</table>
 	</script>
 	<script type="text/javascript" charset="utf-8">
 		$( function() {
@@ -84,45 +88,70 @@
 		$( function () {
 			var Activity = new Collection();
 
+			function render( data ) {
+				dust.render( 'results', { results: data }, function( error, output ) {
+					$( '#results' ).html( output );
+				} );
+			}
+
 			$.getJSON( '/data/data.json', function( data ) {
 				_.each( data.result, function( item, index ) {
 					Activity.add( new Model( item ) );
 				} );
-				dust.render( 'results', { results: Activity.data() }, function( error, output ) {
-					$( '#data' ).html( output );
-				} );
+				render( Activity.data() );
 
 			} );
 
-			$( '#sort' ).live( 'click', function( event ) {
+			$( '.sort' ).on( 'click', function( event ) {
 				event.preventDefault();
 
 				var $this = $( this ),
 					sort,
 					property,
+					type,
 					data,
 					ASCENDING = 'ascending',
 					DESCENDING = 'descending';
 
 				sort = $this.data( 'sort' );
+				type = $this.data( 'type' );
 				property = $this.data( 'property' );
 				data = Activity.sort( function( item, index ) {
-					return item.age;
+					var value = item[property];
+					switch( type ) {
+						case 'number':
+							return parseFloat( value );
+							break;
+						case 'string':
+							return '' + value + '';
+							break;
+						case 'boolean':
+							if( value ) {
+								return true;
+							} else {
+								return false;
+							}
+							break;
+						case 'date':
+							return new Date( value );
+							break;
+						default:
+							return value;
+							break;
+					}
 				} );
 
-				if( !sort || sort === 'descending' ) {
-					sort = 'ascending';
-				} else if( sort === 'ascending' ) {
-					sort = 'descending';
+				if( !sort || sort === DESCENDING ) {
+					sort = ASCENDING;
+				} else if( sort === ASCENDING ) {
+					sort = DESCENDING;
 					data = data.reverse();
 				}
 
-				dust.render( 'results', { results: data }, function( error, output ) {
-					$( '#data' ).html( output );
-				} );
+				render( data );
 
 				$this.data( 'sort', sort );
-				$this.removeClass( 'ascending descending').addClass( sort );
+				$this.removeClass( ASCENDING + ' ' + DESCENDING ).addClass( sort );
 
 			} );
 
