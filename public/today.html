@@ -26,6 +26,7 @@
 	</style>
 	<!-- Bootstrap -->
 	<script src="/scripts/libraries/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/scripts/libraries/underscore-mixins.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/scripts/libraries/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/scripts/libraries/dust-full-0.3.0.min.js" type="text/javascript" charset="utf-8"></script>
 
@@ -42,15 +43,11 @@
 			<table>
 				<thead>
 				  <tr>
-					<th><a class="sort" class="acending" data-sort="ascending" data-property="id" data-type="number" href="#">id</a></th>
-					<th><a class="sort" data-property="avatar" href="#" data-type="string">avatar</a></th>
-					<th><a class="sort" data-property="age" data-type="number" href="#" data-type="number">age</a></th>
-					<th><a class="sort" data-property="admin" href="#" data-type="boolean">admin</a></th>
-					<th><a class="sort" data-property="name" href="#" data-type="string">name</a></th>
-					<th><a class="sort" data-property="company" href="#" data-type="string">company</a></th>
-					<th><a class="sort" data-property="phone" href="#" data-type="number">phone</a></th>
-					<th><a class="sort" data-property="email" href="#" data-type="string">email</a></th>
-					<th><a class="sort" data-property="registerDate" href="#" data-type="date">registerDate</a></th>
+					<th><a class="sort" data-property="id" data-type="string" href="#">Article Id</a></th>
+					<th><a class="sort" data-property="title" data-type="number" href="#">Title</a></th>
+					<th><a class="sort" data-property="summary" href="#" data-type="string">Summary</a></th>
+					<th>Trending</th>
+					<th><a class="sort" data-property="date" href="#" data-type="date">Date</a></th>
 				  </tr>
 				<thead>
 				<tbody id="results">
@@ -62,14 +59,18 @@
 		  {#results}
 		  <tr>
 			<td>{id}</td>
-			<td>{avatar}</td>
-			<td>{age}</td>
-			<td>{admin}</td>
-			<td>{name}</td>
-			<td>{company}</td>
-			<td>{phone}</td>
-			<td>{email}</td>
-			<td>{registerDate}</td>
+			<td>{title}</td>
+			<td>{summary}</td>
+			<td>
+				{?trending}
+				<ul>
+					{#trending}
+					<li>{name}</li>
+					{/trending}
+				</ul>
+				{/trending}
+			</td>
+			<td>{date}</td>
 		  </tr>
 		  {/results}
 	</script>
@@ -86,7 +87,7 @@
 	</script>
 	<script type="text/javascript" charset="utf-8">
 		$( function () {
-			var Activity = new Catwalk.Collection();
+			var Articles = new Catwalk.Collection();
 
 			function render( data ) {
 				dust.render( 'results', { results: data }, function( error, output ) {
@@ -94,16 +95,35 @@
 				} );
 			}
 
-			$.getJSON( '/data/data.json', function( data ) {
-				_.each( data.result, function( item, index ) {
-					Activity.add( new Catwalk.Model( item ) );
+			function normalize( data ) {
+				var object = _.normalize( {
+					id: '[\'articleResult\'][\'articleId\']',
+					title: '[\'memberArticle\'][\'articleContent\'][\'title\']',
+					summary: '[\'memberArticle\'][\'articleContent\'][\'summary\']',
+					date: '[\'memberArticle\'][\'articleContent\'][\'fetchDate\']'
+				}, data );
+				object.date = new Date( data.date ).toUTCString();
+				object.trending = [];
+				_.each( item.articleResult.trendingInEntities, function( item, index ) {
+					data.trending.push( _.normalize( {
+						name: '[\'vanityName\']',
+						id: '[\'entityId\']',
+						type: '[\'entityType\']',
+						vanity: '[\'vanityName\']'
+					}, data ) );
 				} );
-				render( Activity.data() );
+			}
 
+			$.getJSON( '/data/today.json', function( data ) {
+				_.each( data.content.news_container_section.newsList, function( item, index ) {
+					var data = normalize( item );
+					Articles.add( new Catwalk.Model( data ) );
+				} );
+				render( Articles.data() );
 			} );
 
 			$( '.sort' ).on( 'click', function( event ) {
-				event.preventDefault();
+				event.preventDefault();dx
 
 				var $this = $( this ),
 					sort,
@@ -116,7 +136,7 @@
 				sort = $this.data( 'sort' );
 				type = $this.data( 'type' );
 				property = $this.data( 'property' );
-				data = Activity.sort( function( item, index ) {
+				data = Articles.sort( function( item, index ) {
 					var value = item[property];
 					switch( type ) {
 						case 'number':
@@ -155,21 +175,7 @@
 
 			} );
 
-		} );		// 
-				// console.log( data );
-				// _.each( data.result, function( item, index ) {
-				// 	Activity.add( new Model( item ) );
-				// } );
-				// console.info( 'All DATA' );
-				// console.log( Activity.data() );
-				// console.info( 'AGE = 44' );
-				// console.log( Activity.filter( function( item, index ) {
-				// 	return ( item.age === 44 );
-				// } ) );
-				// 
-				// console.log( Activity.sort( function( item, index ) {
-				// 	return item.age;
-				// } ) );
+		} );
 	</script>
 </body>
 

@@ -38,8 +38,12 @@ _.mixin( {
       log: window.console.log || function() {}
     }
   },
-  map: function() {
-      
+  normalize: function( map, data ) {
+      var model = {};
+      _.each( map, function( value, key ) {
+          model[key] = eval( 'data' + value );
+      } );
+    return model;
   }
 } );
 
