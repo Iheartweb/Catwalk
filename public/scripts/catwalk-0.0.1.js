@@ -60,10 +60,10 @@ Catwalk = new ( function Catwalk() {
 			}
 		};
 
-		Model.set = function( attributes ) {
+		Model.update = function( attributes ) {
 			var changed = false;
-			_.each( attributes, function( value, key, list ) {
-				if( !Model.has( key ) || Model.get( key ) !== value ) {
+			_.each( attributes, function( value, key ) {
+				if( !Model.has( key ) || Model.data( key ) !== value ) {
 					if( !changed ) {
 						//history.add( store );
 						changed = true;
@@ -75,6 +75,12 @@ Catwalk = new ( function Catwalk() {
 			if( changed ) {
 				//ChangeEvent
 			}
+		};
+
+		Model.set = function( key, value ) {
+			var atributes = {};
+			attributes[key] = value;
+			Model.update( atributes );
 		};
 
 		Model.unset = function( attribute ) {
@@ -172,6 +178,34 @@ Catwalk = new ( function Catwalk() {
 			}
 		};
 
+		Collection.update = function( data ) {
+			_.each( data, function( item, index ) {
+				var model = Collection.get( item.id );
+				model.set( item );
+			} );
+		};
+
+		Collection.set = function( data ) {
+			var ids = [],
+				temp_models = [];
+
+			_.each( data, function( item, index ) {
+				ids.push( item.id );
+				var model = Collection.get( item.id );
+				if( !model ) {
+					model = Collection.add( new Catwalk.Model( item ) );
+				}
+				model.update( item );
+			} );
+			temp_models = Collection.filter( function( item ) {
+				return ( _.indexOf( ids, item.id ) !== -1 );
+			} );
+			models = [];
+			_.each( temp_models, function( item, index ) {
+				models.push( new Catwalk.Model( item ) );
+			} );
+		};
+
 		Collection.data = function() {
 			var data = [];
 			_.each( models, function( model, index ) {
@@ -182,6 +216,7 @@ Catwalk = new ( function Catwalk() {
 
 		Collection.add = function( model ) {
 			models.push( model );
+			return model;
 		}
 
 		Collection.filter = function( filter ) {

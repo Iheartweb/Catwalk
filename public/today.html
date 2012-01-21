@@ -39,11 +39,12 @@
 
 	<div id="container">
 		<h1>Catwalk Test Page</h1>
+		<a href="#" id="internet_filter" class="filter">Internet & Marketing</a>
 		<div id="data">
 			<table>
 				<thead>
 				  <tr>
-					<th><a class="sort" data-property="id" data-type="string" href="#">Article Id</a></th>
+					<th><a class="sort" data-property="id" data-type="number" href="#">Id</a></th>
 					<th><a class="sort" data-property="title" data-type="number" href="#">Title</a></th>
 					<th><a class="sort" data-property="summary" href="#" data-type="string">Summary</a></th>
 					<th>Trending</th>
@@ -102,28 +103,30 @@
 					summary: '[\'memberArticle\'][\'articleContent\'][\'summary\']',
 					date: '[\'memberArticle\'][\'articleContent\'][\'fetchDate\']'
 				}, data );
-				object.date = new Date( data.date ).toUTCString();
+				object.date = new Date( object.date ).toUTCString();
 				object.trending = [];
-				_.each( item.articleResult.trendingInEntities, function( item, index ) {
-					data.trending.push( _.normalize( {
+				_.each( data.articleResult.trendingInEntities, function( item, index ) {
+					object.trending.push( _.normalize( {
 						name: '[\'vanityName\']',
 						id: '[\'entityId\']',
 						type: '[\'entityType\']',
 						vanity: '[\'vanityName\']'
-					}, data ) );
+					}, item ) );
 				} );
+				return object;
 			}
 
 			$.getJSON( '/data/today.json', function( data ) {
 				_.each( data.content.news_container_section.newsList, function( item, index ) {
 					var data = normalize( item );
+					console.log( data );
 					Articles.add( new Catwalk.Model( data ) );
 				} );
 				render( Articles.data() );
 			} );
 
 			$( '.sort' ).on( 'click', function( event ) {
-				event.preventDefault();dx
+				event.preventDefault();
 
 				var $this = $( this ),
 					sort,
@@ -175,7 +178,35 @@
 
 			} );
 
+			$( '.filter' ).on( 'click', function( event ) {
+				event.preventDefault();
+
+				var $this = $( this ),
+					data;
+
+				data = Articles.filter( function( item ) {
+					var internet = false,
+						marketing_and_advertising = false;
+					_.each( item.trending, function( trend, index ) {
+						if( trend.vanity === 'internet' ) {
+							internet = true;
+						} else if( trend.vanity === 'marketing_and_advertising' ) {
+							marketing_and_advertising = true;
+						}
+					} );
+					return ( internet && marketing_and_advertising );
+				} );
+
+				render( data );
+				console.log( Articles.data().length );
+				Articles.set( data );
+				console.log( Articles.data().length );
+
+			} );
+
 		} );
+
+
 	</script>
 </body>
 
