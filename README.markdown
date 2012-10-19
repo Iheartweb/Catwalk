@@ -15,3 +15,8 @@
 					      .*' /  .*' ; .*`- +'  `*' 
 					      `*-*   `*-*  `*-*'        
 It's not this kind of Cat.
+
+---
+#Getting Started
+1. $npm install
+2. node app

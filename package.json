@@ -1,12 +1,14 @@
 {
-  "name":        "CatwalkTestServer",
-  "version":     "0.0.1",
-  "description": "Test Server for Catwalk",
-  "author":      "Robert Martone",
-  "private":     true,
-  "dependencies": {
-    "node-static":        "0.5.7",
-    "seq":                "0.3.3"
+  "name": "Catwalk",
+  "description": "Putting the M in MVC since 2012",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
   },
-  "engine":      "node >= 0.4.10"
+  "dependencies": {
+    "express": "3.0.0rc5",
+    "ejs": "*",
+    "css": "*"
+  }
 }
