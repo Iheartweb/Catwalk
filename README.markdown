@@ -1,4 +1,3 @@
-
 					       _                        
 					       \`*-.                    
 					        )  _`-.                 
@@ -16,7 +15,4 @@
 					      `*-*   `*-*  `*-*'        
 It's not this kind of Cat.
 
----
-#Getting Started
-1. $npm install
-2. node app
+To get started simply run ```$npm install```, then ```$npm start```.
