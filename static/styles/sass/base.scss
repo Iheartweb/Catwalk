@@ -1,143 +1,32 @@
-/*
-* Skeleton V1.2
-* Copyright 2011, Dave Gamache
-* www.getskeleton.com
-* Free to use under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-* 6/20/2012
-*/
+@import "theme/beige";
 
+@include base();
 
-/* Table of Content
-==================================================
-  
-#Reset & Basics
-  
-#Basic Styles
-  
-#Site Styles
-  
-#Typography
-  
-#Links
-  
-#Lists
-  
-#Images
-  
-#Buttons
-  
-#Forms
-  
-#Misc */
-
-
-/* #Reset & Basics (Inspired by E. Meyers)
-================================================== */
-  
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  
-  
-margin: 0;
-  
-  
-padding: 0;
-  
-  
-border: 0;
-  
-  
-font-size: 100%;
-  
-  
-font: inherit;
-  
-  
-vertical-align: baseline; }
-  
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  
-  
-display: block; }
-  
 body {
-  
-  
-line-height: 1; }
-  
-ol, ul {
-  
-  
-list-style: none; }
-  
-blockquote, q {
-  
-  
-quotes: none; }
-  
-blockquote:before, blockquote:after,
-  
-q:before, q:after {
-  
-  
-content: '';
-  
-  
-content: none; }
-  
-table {
-  
-  
-border-collapse: collapse;
-  
-  
-border-spacing: 0; }
-
-
-/* #Basic Styles
-================================================== */
-  
-body {
-  
-  
-background: #fff;
-  
-  
-font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  
-  
-color: #444;
-  
-  
--webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
-  
-  
--webkit-text-size-adjust: 100%;
- }
-
+  @include font-family( sans-serif );
+  @include styleguide( copy );
+}
 
 /* #Typography
 
 ================================================== */
 
-#{headings( 1,6 )}{
-  color: include styleguide( headline in a container, $exclude: font-size line-height );
+#{headings()} {
   @include font-family( serif );
   a {
     font-weight: inherit;
   }
   &.subheader {
-    font-size:;
     color: #777;
   }
 }
 
-h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
-h2 { font-size: 35px; line-height: 40px; margin-bottom: 10px; }
-h3 { font-size: 28px; line-height: 34px; margin-bottom: 8px; }
-h4 { font-size: 21px; line-height: 30px; margin-bottom: 4px; }
-h5 { font-size: 17px; line-height: 24px; }
-h6 { font-size: 14px; line-height: 21px; }
+h1 { @include styleguide(xx-large headline); }
+h2 { @include styleguide(x-large headline); }
+h3 { @include styleguide(large headline); }
+h4 { @include styleguide(medium headline); }
+h5 { @include styleguide(small headline); }
+h6 { @include styleguide(x-small headline); }
 .subheader { color: #777; }
 
   
