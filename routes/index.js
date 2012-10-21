@@ -61,19 +61,16 @@ exports.contacts = function(req, res){
   res.sendfile('./static/assets/data/mock.json');
 };
 
-exports.randomState = function(req, res){
-  var number,
-    state;
+//exports.randomState = function(req, res){
+  // var number,
+  //   state;
 
-  if( states.length ){
-    state = states.splice( Math.floor( Math.random() * states.length ), 1 )[0];
-    res.json( { "jsonrpc": "2.0", "result": state, "id": 1 } );
-  } else {
-    
-  }
+  // if( states.length ){
+  //   state = states.splice( Math.floor( Math.random() * states.length ), 1 )[0];
+  //   res.json( { "jsonrpc": "2.0", "result": state, "id": 1 } );
+  // } else {
+  //   res.json
+  // }
+//};
 
- 
-
-};
-
-exports.states = res.render('mutation', {});
+//exports.states = res.render('mutation', {});

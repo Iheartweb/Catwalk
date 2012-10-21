@@ -1,0 +1,15 @@
+$beige-theme-component-subheader-id: subheader !default;
+$beige-theme-component-subheader: () !default;
+
+$beige-theme-component: styleguide-add-component( $beige-theme-component-subheader-id, $beige-theme-component-subheader, (
+  default, (
+    font-size 14px,
+    color nth( $CONFIG_COLOR_STRONG_SUB, 1 ),
+    nil
+  ), (
+    in-dark, (
+      color nth-cyclic( $CONFIG_COLOR_STRONG_SUB, 2 ),
+      nil
+    )
+  )
+), $CONFIG_THEME );

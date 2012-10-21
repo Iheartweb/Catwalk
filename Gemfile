@@ -1,4 +1,4 @@
-source :rubygems
+#source :rubygems
 source :rubyforge
 source :gemcutter
 
