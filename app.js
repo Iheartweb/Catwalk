@@ -28,6 +28,7 @@ app.configure('development', function(){
 });
 
 app.get( '/', routes.index );
+app.get( '/mutation', routes.mutation );
 app.get( '/contacts', routes.contacts );
 
 http.createServer(app).listen(app.get('port'), function(){

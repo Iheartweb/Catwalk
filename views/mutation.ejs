@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+  <meta charset="utf-8">
+  <title>Catwalk</title>
+  <meta name="description" content="Putting the M in MVC since 2012">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/skeleton.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-touch-icon-114x114.png">
+
+</head>
+<body>
+<header id="header" class="container">
+  <h1 id="logo">
+    <a href="/"><span>Catwalk</span></a>
+  </h1>
+</header>
+<div class="container">
+  <section>
+    <header>
+      <h3>Mutation</h3>
+    </header>
+    <div class="content">
+      <ul id="accordion" data-lu="List"></ul>
+    </div>
+  </section>
+</div>
+
+<script src="/scripts/libraries/fiber/1.0.4/fiber.min.js"></script>
+<script src="/scripts/libraries/underscore/1.4.2/underscore.js"></script>
+<script src="/scripts/libraries/inject/0.4.0/inject.min.js"></script>
+<script src="/scripts/libraries/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+
+<script src="/scripts/lu-config.js" type="text/javascript"></script>
+<script src="/scripts/libraries/lu/0.3.3/lu.js"></script>
+<script src="/scripts/libraries/lu/0.3.3/mappers.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+
+  Inject.setExpires( 0 );
+  Inject.clearCache();
+  Inject.setModuleRoot( 'http://localhost:3000/' );
+
+  window.LU_DEBUG = 5;
+
+  $( function(){
+    Lu.execute( $( 'body' ) ).then( function(){
+      console.info( 'DONE!' );
+    } );
+  } );
+
+</script>
+
+
+<script src="/scripts/mutation.js"></script>
+
+</body>
+</html>
