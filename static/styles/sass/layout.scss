@@ -1,0 +1,147 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+/* Table of Content
+==================================================
+  #Site Styles
+  #Page Styles
+  #Media Queries
+  #Font-Face */
+
+/* #Site Styles
+================================================== */
+body {
+  background: url('/assets/images/noise.png')
+}
+
+#header {
+  height: 80px;
+  padding-bottom: 10px;
+}
+
+#logo {
+  background: url("/assets/images/logo.png") no-repeat;
+  height: 60px;
+  width: 60px;
+}
+
+#logo a {
+  display: block;
+  height: 100%;
+  width: 100%
+}
+
+#logo span {
+  display: none;
+}
+
+div.content {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12)
+}
+h3 {
+  background: none repeat scroll 0 0 #333333;
+  color: #FCFCFC;
+  display: block;
+  padding: 10px 20px;
+  margin-bottom: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 0 0 0 transparent, 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+/* Tables - America F*$k Yeah!!! */
+
+table { 
+  border-collapse: collapse; 
+  border-color: #C2C2C2;
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
+}
+
+th {
+  background-color: #E0E0E0;
+  background-image: linear-gradient(center top , #F2F2F2, #E0E0E0);
+  border-color: #C2C2C2;
+  border-style: none solid solid none;
+  border-width: 0 1px 1px 0;
+}
+th a {
+  border-color: #F8F8F8;
+  border-style: solid none none solid;
+  border-width: 1px 0 0 1px;
+  color: #222222;
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+td {
+  background-color: #F2F2F2;
+  border-right: 1px solid #C2C2C2;
+  color: #222222;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) td { 
+  background: #fff;
+}
+
+#accordion .pannel {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+#accordion .pannel header a {
+  background-color: #333;
+  display: block;
+  padding: 8px 10px;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1em;
+  text-decoration: none;
+}
+
+#accordion .panel_content {
+  padding: 8px 10px;
+}
+
+#accordion .lu-state-inactive .panel_content {
+  display: none;
+}
+
+#accordion .lu-state-active .panel_content {
+  display: block;
+}
+
+/* #Page Styles
+================================================== */
+
+/* #Media Queries
+================================================== */
+
+  /* Smaller than standard 960 (devices and browsers) */
+  @media only screen and (max-width: 959px) {}
+
+  /* Tablet Portrait size to standard 960 (devices and browsers) */
+  @media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+  /* All Mobile Sizes (devices and browser) */
+  @media only screen and (max-width: 767px) {}
+
+  /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+  @media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+  /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+  @media only screen and (max-width: 479px) {}
+

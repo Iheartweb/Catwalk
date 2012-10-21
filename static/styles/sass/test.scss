@@ -1,0 +1,5 @@
+@import "archetype";
+
+body {
+  @include styleguide(canvas);
+}

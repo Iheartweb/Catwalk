@@ -3,3 +3,8 @@
 *.log
 node_modules/*
 !.gitignore
+Gemfile.lock
+.sass-cache
+*.lock
+Icon
+.sass-cache
