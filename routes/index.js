@@ -57,6 +57,10 @@ exports.mutation = function(req, res){
   res.render('mutation', {});
 };
 
+exports.components = function(req, res){
+  res.render('components', {});
+};
+
 exports.contacts = function(req, res){
   res.sendfile('./static/assets/data/mock.json');
 };

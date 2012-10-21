@@ -1,28 +1,27 @@
 ( function(){
-  var Bootstrap = $.when( getTemplate( 'contact' ), $.getJSON( '/contacts' ) );
 
-  function getTemplate( template ){
-    return $.get( '/assets/templates/' + template + '.tmpl' );
-  }
+  var location =  document.location,
+    origin = location.origin,
+    port = location.port;
 
-  function renderModel( template, model ){
-    return _.template( template, model );
-  }
+  //Use this in dev mode
+  Inject.setExpires( 0 );
+  Inject.clearCache();
 
-  function renderCollection( template, collection ){
-    var html = '';
-    _.each( collection, function( model, index ){
-      html += renderModel( template, model );
-    } );
-    return html;
-  }
+  //This is the root that inject will look for all modules at
+  //this should work except for x-domain
+  Inject.setModuleRoot( origin + ( port !== '' ) ? ':' + port + '/' : '/';
 
-$( function(){
-  var $contacts = $( '#contacts' );
-
-  Bootstrap.then( function( template, json ){
-    $contacts.append( renderCollection( template[0], json[0].result ) );
+  require.ensure( 'map/default', function(){
+    var DefaultMap = require( 'map/default' );
+    DefaultMap.register( 'body', { execute: true } );
   } );
-} );
+
+  $( function(){
+    //First-Pass of Lu Execution
+    Lu.execute( $( 'body' ) ).then( function(){
+      console.info( 'DONE!' );
+    } );
+  } );
 
 }() );
