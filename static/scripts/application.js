@@ -1,8 +1,10 @@
 ( function(){
 
   var location =  document.location,
-    origin = location.origin,
-    port = location.port;
+    protocol = location.protocol,
+    hostname = location.hostname,
+    port = location.port,
+    moduleRoot = protocol + '//' + hostname + ( ( port !== '' ) ? ':' + port + '/' : '/' ) ;
 
   //Use this in dev mode
   Inject.setExpires( 0 );
@@ -10,17 +12,19 @@
 
   //This is the root that inject will look for all modules at
   //this should work except for x-domain
-  Inject.setModuleRoot( origin + ( port !== '' ) ? ':' + port + '/' : '/';
+  Inject.setModuleRoot( moduleRoot );
 
-  require.ensure( 'map/default', function(){
+  require.ensure( ['map/default'], function(){
     var DefaultMap = require( 'map/default' );
-    DefaultMap.register( 'body', { execute: true } );
-  } );
-
-  $( function(){
-    //First-Pass of Lu Execution
-    Lu.execute( $( 'body' ) ).then( function(){
-      console.info( 'DONE!' );
+    DefaultMap.observe();
+    $( function(){
+      DefaultMap.execute();
+      $( '#SwitchButton' ).click( function( event ){
+        $('#switches').append('<div data-lu="Switch"><button data-lu="Button:Select">Select</button></div>');
+      } );
+      $( '#ListButton' ).click( function( event ){
+        $('#list').append('<li data-lu="Switch"><h2>' + Math.floor( Math.random() * 1e3 ) + '</h2></li>');
+      } );
     } );
   } );
 

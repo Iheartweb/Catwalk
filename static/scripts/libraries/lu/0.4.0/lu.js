@@ -8,119 +8,6 @@
 var Lu = function(){
   var self = this;
 
-  this.$mapped = $( [] );
-  this.map = function( $element, component, callback ){
-    var mapped = [];
-
-    _.each( $element, function( item, index ){
-      var $element = $( item ),
-        componentData,
-        deferral,
-        settings,
-        configuration = item.getAttribute( 'data-lu-config' ),
-        key;
-
-      componentData = $element.lu( 'getComponents' );
-
-      if( !$element.data( 'mapped' ) ){
-        $element.data( 'mapped', true );
-        mapped.push( item );
-      }
-
-      if( !componentData[component] ){
-        deferral = $.Deferred();
-        componentData[component] = {
-          deferral: deferral,
-          ready: deferral.then,
-          settings: {}
-        };
-      } else {
-        _.extend( componentData[component].settings, {} );
-      }
-
-      if( callback ){
-        callback.call( componentData[component], $element );
-      }
-
-      key = componentData[component].key || component;
-
-      if( configuration ){
-        try {
-          configuration = ( function(){ return eval( '( function(){ return ' + configuration + '; }() );' ); }()[key] || {} );
-        } catch( e ){
-          configuration = {};
-        }
-      } else {
-        configuration = {};
-      }
-
-      componentData[component].settings = _.extend( componentData[component].settings, configuration );
-    } );
-
-    this.$mapped = this.$mapped.add( mapped );
-  };
-
-  /**
-   * Instantiates a control with selected element.
-   * @method execute
-   * @private
-   * @param {Array} $node A jQuery collection with the selected elements.
-   * @param {String} key The name of the Control.
-   * @param {Function} Control The Control's constructor.
-   * @return {Void}
-   */
-  function execute( $element ){
-    var components = $element.lu( 'getComponents' );
-
-    //no components were found so there is nothing to do
-    if( components.length === 0 ){
-      deferral.resolve();
-    }
-    _.each( components, function( component, key ){
-      var requirement = 'lu/' + key,
-        settings = component.settings;
-
-      if( _.indexOf( requirements, requirement ) === -1 ){
-        requirements.push( requirement );
-      }
-
-      count -= 1;
-
-      deferral.then( function( required, module, exports ){
-        var Component = require( requirement ),
-          dependenciesResolved = false;
-
-        if( component.hasDependencies ){
-          $element.one( 'lu:dependencies-resolved', function( event, instance ){
-            event.stopPropagation();
-            dependenciesResolved = true;
-          } );
-        }
-
-        component.instance = new Component( $element, settings );
-
-        if( dependenciesResolved ){
-          component.deferral.resolve( component.instance );
-        } else if( !dependenciesResolved && component.hasDependencies ){
-          component.instance.one( 'dependencies-resolved', function( event, instance ){
-            event.stopPropagation();
-            component.deferral.resolve( component.instance );
-          } );
-        } else {
-          component.deferral.resolve( component.instance );
-        }
-
-      } );
-
-      if( count === 0 ){
-        require.ensure( requirements, function( required, module, exports ){
-          deferral.resolve( required, module, exports );
-        } );
-      }
-
-    } );
-  }
-
   /**
    * Loads and instantiates components.
    * @public
@@ -134,6 +21,67 @@ var Lu = function(){
       deferral = $.Deferred(),
       requirements = [],
       count;
+
+    /**
+     * Instantiates a control with selected element.
+     * @method execute
+     * @private
+     * @param {Array} $node A jQuery collection with the selected elements.
+     * @param {String} key The name of the Control.
+     * @param {Function} Control The Control's constructor.
+     * @return {Void}
+     */
+    function execute( $element ){
+      var components = $element.lu( 'getComponents' );
+
+      //no components were found so there is nothing to do
+      if( components.length === 0 ){
+        deferral.resolve();
+      }
+      _.each( components, function( component, key ){
+        var requirement = 'lu/' + key,
+          settings = component.settings;
+
+        if( _.indexOf( requirements, requirement ) === -1 ){
+          requirements.push( requirement );
+        }
+
+        count -= 1;
+
+        deferral.then( function( required, module, exports ){
+          var Component = require( requirement ),
+            dependenciesResolved = false;
+
+          if( component.hasDependencies ){
+            $element.one( 'lu:dependencies-resolved', function( event, instance ){
+              event.stopPropagation();
+              dependenciesResolved = true;
+            } );
+          }
+
+          component.instance = new Component( $element, settings );
+
+          if( dependenciesResolved ){
+            component.deferral.resolve( component.instance );
+          } else if( !dependenciesResolved && component.hasDependencies ){
+            component.instance.one( 'dependencies-resolved', function( event, instance ){
+              event.stopPropagation();
+              component.deferral.resolve( component.instance );
+            } );
+          } else {
+            component.deferral.resolve( component.instance );
+          }
+
+        } );
+
+        if( count === 0 ){
+          require.ensure( requirements, function( required, module, exports ){
+            deferral.resolve( required, module, exports );
+          } );
+        }
+
+      } );
+    }
 
     if( $element.data( 'mapped' ) ){
       $nodes = $nodes.add( $element );

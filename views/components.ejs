@@ -24,20 +24,44 @@
   <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-touch-icon-72x72.png">
   <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-touch-icon-114x114.png">
 
+  <style type="text/css">
+    .lu-state-selected {
+      background: #cde;
+    }
+    body {
+      padding-top: 20px;
+    }
+  </style>
 </head>
 <body>
-<header id="header" class="container">
-  <h1 id="logo">
-    <a href="/"><span>Catwalk</span></a>
-  </h1>
-</header>
 <div class="container">
   <section>
     <header>
       <h3>Mutation</h3>
     </header>
     <div class="content">
-      <ul id="accordion" data-lu="List"></ul>
+      <div data-lu="Carousel">
+        <ul id="list" >
+          <li data-lu="Switch" class="lu-state-selected">
+            <h2>1</h2>
+          </li>
+          <li data-lu="Switch">
+            <h2>290</h2>
+          </li>
+          <li data-lu="Switch">
+            <h2>895</h2>
+          </li>
+        </ul>
+        <button type="button" data-lu="Button:Previous">Previous</button>
+        <button type="button" data-lu="Button:Next">Next</button>
+      </div>
+      <button type="button" id="ListButton">Add li to DOM</button>
+      <br/>
+      <div id="switches">
+
+      </div>
+
+      <button type="button" id="SwitchButton">Add Switch to DOM</button>
     </div>
   </section>
 </div>
@@ -49,26 +73,9 @@
 
 <script src="/scripts/lu-config.js" type="text/javascript"></script>
 <script src="/scripts/libraries/lu/0.4.0/lu.js"></script>
-<script src="/scripts/libraries/lu/0.4.0/maps.js"></script>
+<script src="/scripts/libraries/lu/0.4.0/map.js"></script>
 
-<script type="text/javascript" charset="utf-8">
-
-  Inject.setExpires( 0 );
-  Inject.clearCache();
-  Inject.setModuleRoot( 'http://localhost:3000/' );
-
-  window.LU_DEBUG = 5;
-
-  $( function(){
-    Lu.execute( $( 'body' ) ).then( function(){
-      console.info( 'DONE!' );
-    } );
-  } );
-
-</script>
-
-
-<script src="/scripts/components.js"></script>
+<script src="/scripts/application.js"></script>
 
 </body>
 </html>

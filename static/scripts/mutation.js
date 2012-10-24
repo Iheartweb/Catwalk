@@ -19,7 +19,7 @@
   Observer = new MutationObserver( function( records, index ){
     _.each( records, function( record, index ){
       _.each( record.addedNodes, function( node, index ){
-        if( node.nodeName === 'SCRIPT' ){
+        if( _.indexOf( illegals, node.nodeName ) > -1 ){
           return;
         }
 
