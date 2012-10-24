@@ -158,7 +158,7 @@ var Model = Fiber.extend( function(){
 
       //Give our model a uniqueId if one is not provided
       if( !id && id !== 0 ){
-        data[settings.primaryKey] = id = 
+        data[settings.primaryKey] = id = uuid;
       }
 
       //construct the url to use in sync
