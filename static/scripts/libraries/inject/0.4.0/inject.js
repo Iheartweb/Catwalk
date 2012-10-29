@@ -129,8 +129,8 @@ var REQUIRE_REGEX = /(?:^|[^\w\$_.\(])require\s*\(\s*("[^"\\]*(?:\\.[^"\\]*)*"|'
  * extract define() statements from within a larger string
  * @constant 
  */
-var DEFINE_EXTRACTION_REGEX = /(?:^|[\s]+)define[\s]*\([\s]*((?:"|')\S+(?:"|'))?,?[\s]*(?:\[([\w\W]+)\])?/g;
-
+//var DEFINE_EXTRACTION_REGEX = /(?:^|[\s]+)define[\s]*\([\s]*((?:"|')\S+(?:"|'))?,?[\s]*(?:\[([\w\W]+)\])?/g;
+var DEFINE_EXTRACTION_REGEX = /(?:^|[\s]+)define[\s]*([\s]*((?:"|')\S+?(?:"|'))?,?[\s]*(?:[([\w\W]+?)])?/g
 /** 
  * index of all commonJS builtins in a function arg collection
  * @constant 

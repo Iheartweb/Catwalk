@@ -28,10 +28,7 @@ app.configure('development', function(){
 });
 
 app.get( '/', routes.index );
-app.get( '/mutation', routes.mutation );
-app.get( '/contacts', routes.contacts );
-app.get( '/components', routes.components );
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("The Express server is listening. Point your browser to http://localhost:" + app.get('port'));
+  console.log("The Express server is listening.");
 });
