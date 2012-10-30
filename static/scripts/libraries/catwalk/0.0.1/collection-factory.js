@@ -20,16 +20,12 @@ var CollectionFactory = Fiber.extend( function(){
       if(settings.dataProxy == null) {
         //Must pass in a data proxy
       }
-
-      //this.
     },
     requestByFilter: function(filter) {
       var collection = new Collection();
-
-
-
     },
     requestByPk: function(pk, type) {
+      var collection = new Collection();
       if(_.isArray(pk)) {
         //Array of primary keys
       }
