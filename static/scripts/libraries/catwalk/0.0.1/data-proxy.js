@@ -25,6 +25,7 @@ var DataProxy = Fiber.extend( function(){
       //Store any bootstrapped data in a collection
       if(data) {
         data = new Collection(settings.data);
+        this.registerData(data);
       } else {
         data = new Collection();
       }
@@ -41,6 +42,27 @@ var DataProxy = Fiber.extend( function(){
        */
       function onServerUpdate(pk, attributes) {
         //Should we allow multiple records to be updated at once?
+      }
+
+      /**
+       * Alerts the server that the client wants to recieve updates
+       * for the given data
+       * @method
+       * @private
+       * @param {string} data pk or filter of relevant data
+       * @param {Collection} data collection of relevant models
+       */
+      this.registerData = function(data) {
+        if(_.isCollection(data)) {
+
+        } 
+        /*
+        else if(isFilter) {
+          
+        } else if(isPK) {
+  
+        }
+        */
       }
 
       //Bind to socket  events
