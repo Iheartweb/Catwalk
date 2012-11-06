@@ -6,32 +6,32 @@ define( 'Catwalk/Abstract', function(){
 
   //TODO: bridge this code to Zepto/Ender
 
-  var Abstract = Fiber.extend( function(){
+    var Abstract = Fiber.extend( function(){
 
     'use strict';
 
-    var defaults = {};
+     var defaults = {},
+      $proxy = $({});
 
     return {
-      init: function( settings ){
-        var self = this,
-          $proxy = $([]);
 
+      init: function( settings ){
+        var self = this;
         settings = settings || {};
 
         _.defaults( settings, defaults );
       },
       on: function(){
-        return $.on.call( $proxy, arguments );
+        return $proxy.on.apply( $proxy, arguments );
       },
       one: function(){
-        return $.on.call( $proxy, arguments );
+        return $proxy.on.apply( $proxy, arguments );
       },
       trigger: function(){
-        return $trigger.call( $proxy, arguments );
+        return $proxy.trigger.apply($proxy, arguments);
       },
       off: function(){
-        return $.off.call( $proxy, arguments );
+        return $proxy.off.apply( $proxy, arguments );
       }
     };
   } );
