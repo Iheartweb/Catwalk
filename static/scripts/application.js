@@ -20,8 +20,8 @@
 ( function(){
 
   require.ensure( ['Components'], function(){
-    var Catwalk = require( 'Catwalk' ),
-      root = new Catwalk.Controller();
+    var Components = require( 'Components' ),
+      root = new Components.RootController();
   });
 
   /*
