@@ -4,6 +4,7 @@ define( 'Catwalk', function(){
   Catwalk.Schema = require( 'Catwalk/Schema' );
   Catwalk.Model = require( 'Catwalk/Model' );
   Catwalk.Collection = require( 'Catwalk/Collection' );
+  Catwalk.Controller = require( 'Catwalk/Controller' );
 
   return Catwalk;
 } );
