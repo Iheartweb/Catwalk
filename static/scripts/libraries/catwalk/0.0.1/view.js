@@ -42,9 +42,9 @@ define('Catwalk/View', function(){
           stack = e.split(' ', 1);
 
           if(stack.length === 1) {
-              alias = this.el;
+            alias = this.el;
           } else {
-              alias = this.el.find(stack[1]);
+            alias = this.el.find(stack[1]);
           }
 
           //callback is function, not event to be fired on view
