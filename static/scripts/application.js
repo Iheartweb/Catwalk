@@ -19,9 +19,12 @@
 
 ( function(){
 
+
   require.ensure( ['Components'], function(){
     var Components = require( 'Components' ),
-      root = new Components.RootController();
+      app = {
+        controller: new Components.RootController()
+      };
   });
 
   /*
