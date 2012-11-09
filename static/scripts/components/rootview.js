@@ -13,7 +13,7 @@ define('Components/RootView', function(){
 
     return {
       //'click body':'bodyClicked' = trigger 'bodyClicked' event on view
-      //'click body':'bodyClicked()' = run this.bodyClicked() function
+      //'click body':'bodyClicked()' = call this.bodyClicked() function
       events: {
         'click':'bodyClicked',
       },

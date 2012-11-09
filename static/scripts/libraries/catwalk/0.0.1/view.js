@@ -47,11 +47,11 @@ define('Catwalk/View', function(){
             alias = this.el.find(stack[1]);
           }
 
-          //callback is function, not event to be fired on view
           if(callback[callback.length-2] === '(' && callback[callback.length-1] === ')') {
+            //callback is a member function to be called
             alias.on(stack[0], this[callback.substring(0,callback.length-2)]);
           } else {
-            //callback is event that needs to be triggered
+            //callback is event that needs to be triggered on the view
             this.triggerFuncs.push(function(obj,e) {
               return function() {
                 obj.trigger(e);
