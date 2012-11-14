@@ -7,6 +7,7 @@ define( 'Catwalk', function(){
   Catwalk.CollectionFactory = require( 'Catwalk/CollectionFactory' );
   Catwalk.Controller = require( 'Catwalk/Controller' );
   Catwalk.View = require( 'Catwalk/View' );
+  Catwalk.Promise = require( 'Catwalk/Promise' );
 
   return Catwalk;
 } );

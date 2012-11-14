@@ -21,9 +21,13 @@ define('Components/RootView', function(){
         settings = settings || {};
         _.defaults( settings, defaults );
         base.init.call( this );
-      },
-      doSomething: function() {
-        alert("do something!");
+
+        return [
+          {
+            schema: "Person",
+            
+          }
+        ];
       }
     };
   });
