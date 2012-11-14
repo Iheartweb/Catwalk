@@ -4,8 +4,6 @@ define( 'Catwalk/Abstract', function(){
   * Facade for jQuery Events
   */
 
-  //TODO: bridge this code to Zepto/Ender
-
     var Abstract = Fiber.extend( function(){
 
     'use strict';

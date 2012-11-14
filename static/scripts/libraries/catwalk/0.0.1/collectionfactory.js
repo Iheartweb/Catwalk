@@ -13,7 +13,7 @@ define('Catwalk/CollectionFactory', function(){
   /**
   * @class CollectionFactory
   */
-  var CollectionFactory = Fiber.extend( function(){
+  var CollectionFactory = Abstract.extend( function(){
 
     'use strict';
 
