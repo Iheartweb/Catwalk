@@ -18,6 +18,16 @@
 //Catwalk app Stuff
 
 ( function(){
+
+
+  require.ensure( ['Components'], function(){
+    var Components = require( 'Components' ),
+      app = {
+        controller: new Components.RootController()
+      };
+  });
+
+  /*
   var data = [
     { name: 'Robert', age: 9, company: 'LinkedIn'},
     { name: 'Robert', age: 1, company: 'LinkedIn'},
@@ -79,6 +89,6 @@
     console.info( 'End :: '  + results.length );
 
   } );
-
+*/
 
 }() );

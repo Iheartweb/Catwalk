@@ -11,12 +11,12 @@ define('Catwalk/Controller', function(){
     'use strict';
 
     var defaults = {
-      controllers: {},
       parent: null,
+      controllers: {},
       views: {
         'primary': null
       }
-    },
+    };
 
     return {
       init: function( settings ) {
